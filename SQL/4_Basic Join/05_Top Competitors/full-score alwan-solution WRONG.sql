@@ -21,3 +21,10 @@ Consequence: While this doesn’t'' change the result, it adds redundancy, which
 Problem: You tried to order the results by COUNT(submissions.hacker_id) DESC, submissions.hacker_id ASC. The second part, submissions.hacker_id ASC, doesn’t make sense because you are ordering by a grouped count and trying to order by a non-grouped column.
 Consequence: This could lead to incorrect sorting or errors depending on the SQL engine.
 Solution: You should order by the count and then by hackers.hacker_id ASC, ensuring that ties in the count are broken by hacker_id.
+
+Conclusion:
+Joining hacker_id isn't redundant; it's necessary for ensuring the data is correctly linked and filtered. Each join step serves a purpose:
+
+hackers to submissions: Links hackers to the submissions they''ve made.
+submissions to challenges: Ensures submissions are linked to the correct challenges.
+challenges to difficulty: Associates each challenge with its difficulty level to apply the correct filtering and aggregation.
